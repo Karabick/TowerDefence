@@ -11,21 +11,6 @@ public enum ITower
     ProtectorTower
 }
 
-public interface ITowerInterface
-{
-    int level { get; }
-    float hp { get; }
-    int upgradeHP { get; }
-    int price { get; }
-    int upgradePrice { get; }
-    int sellPrice { get; }
-    int upgradeSellPrice { get; }
-    int maxLevel { get; }
-    int countOfModules { get; }
-    int upgradeWarriorsNumber { get; }
-    public FormationManager typeOfFormation {  get; }
-}
-
 public class TowerManager : MonoBehaviour
 {
     [Serializable]
@@ -70,11 +55,21 @@ public class TowerManager : MonoBehaviour
                 {
                     if (prefabs[ind].towerType == place[i].towerPlaceManager.towerType)
                     {
-                        Instantiate(prefabs[ind].prefabTower, place[i].place.position, Quaternion.identity);
+                        GameObject tower = Instantiate(prefabs[ind].prefabTower, place[i].place.position, Quaternion.identity);
+
+                        TowerController towerController = tower.GetComponent<TowerController>();
+                        if (towerController != null)
+                        {
+                            towerController.managerOnPlace = place[i].towerPlaceManager;
+                            towerController.info.targetPoint = place[i].targetPlace;
+                            towerController.info.spawnPoint = place[i].towerPlaceManager.spawnPoint;
+                        }
+
                         if (prefabs[ind].prefabWarrior != null && place[i].targetPlace != null)
                         {
-                            Instantiate(prefabs[ind].prefabWarrior, place[i].targetPlace.position, Quaternion.identity);
+                            GameObject warrior = Instantiate(prefabs[ind].prefabWarrior, place[i].targetPlace.position, Quaternion.identity);
                         }
+
                         towerFound = true;
                         break;
                     }
@@ -88,21 +83,6 @@ public class TowerManager : MonoBehaviour
                 place[i].towerPlaceManager.click = false;
                 place[i].empty = false;
             }
-        }
-    }
-
-
-
-    public ITowerInterface SetTowerType(ITower towerType)
-    {
-        switch (towerType) {
-            case ITower.ArcherTower:return new IArcherTower();
-            case ITower.HPMageTower: return new IHPMageTower();
-            case ITower.ProtectorTower: return new IProtectorTower();
-            case ITower.DamageMageTower: return new IDamageMageTower();
-            case ITower.KnightTower: return new IKnightTower();
-            default: Debug.LogError($"Такого типа башни нет!");
-                return null;
         }
     }
 }

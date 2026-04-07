@@ -66,14 +66,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 89492668bba6c274ab79a14e289b90e5, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2456766062162688335}
+      addedObject: {fileID: 1278375244114073201}
   m_SourcePrefab: {fileID: 100100000, guid: 89492668bba6c274ab79a14e289b90e5, type: 3}
 --- !u!1 &1368985187995670856 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 89492668bba6c274ab79a14e289b90e5, type: 3}
   m_PrefabInstance: {fileID: 2179448751466079257}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2456766062162688335
+--- !u!114 &1278375244114073201
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -85,7 +85,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2ebe2fac91ed0b4bb7cea32339357a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement
-  speed: 1
+  speed: 2
   speedRotation: 2
   Level: 1
   point: []
