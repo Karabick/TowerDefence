@@ -10,20 +10,20 @@ public class EnemySpawner : MonoBehaviour
     public int time_before_start;
 
     private int current_wave_number = 0;
-    private int currentWayIndex; // индекс текущего пути
-    private int currentEnemyTypeIndex; // индекс текущего типа врага на пути
-    private int currentEnemyCount; // индекс текущего количества созданных врагов
+    private int currentWayIndex; // ГЁГ­Г¤ГҐГЄГ± ГІГҐГЄГіГ№ГҐГЈГ® ГЇГіГІГЁ
+    private int currentEnemyTypeIndex; // ГЁГ­Г¤ГҐГЄГ± ГІГҐГЄГіГ№ГҐГЈГ® ГІГЁГЇГ  ГўГ°Г ГЈГ  Г­Г  ГЇГіГІГЁ
+    private int currentEnemyCount; // ГЁГ­Г¤ГҐГЄГ± ГІГҐГЄГіГ№ГҐГЈГ® ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ  Г±Г®Г§Г¤Г Г­Г­Г»Гµ ГўГ°Г ГЈГ®Гў
 
     private void Start()
     {
         Invoke("Start_next_wave", time_before_start);
     }
 
-    // запуск следующей волны
+    // Г§Г ГЇГіГ±ГЄ Г±Г«ГҐГ¤ГіГѕГ№ГҐГ© ГўГ®Г«Г­Г»
     public void Start_next_wave()
     {
         current_wave_number++;
-        Debug.Log($"Начата волна {current_wave_number}");
+        Debug.Log($"ГЌГ Г·Г ГІГ  ГўГ®Г«Г­Г  {current_wave_number}");
         if (current_wave_number <= wave_number) 
         {
             currentWayIndex = 0; 
@@ -33,7 +33,7 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    // Создание врагов на сцене в текущей волне
+    // Г‘Г®Г§Г¤Г Г­ГЁГҐ ГўГ°Г ГЈГ®Гў Г­Г  Г±Г¶ГҐГ­ГҐ Гў ГІГҐГЄГіГ№ГҐГ© ГўГ®Г«Г­ГҐ
     public void spawn_enemy_in_current_wave()
     {
         if (currentWayIndex >= manager.way.Count)
@@ -43,13 +43,12 @@ public class EnemySpawner : MonoBehaviour
             {
                 Invoke("Start_next_wave", interval_between_waves);
             }
-            else Debug.Log($"Все волны закончены!");
+            else Debug.Log($"Г‚Г±ГҐ ГўГ®Г«Г­Г» Г§Г ГЄГ®Г­Г·ГҐГ­Г»!");
             return;
         }
 
         var currentWay = manager.way[currentWayIndex];
 
-        // Проверка на выход из массива типов
         if (currentEnemyTypeIndex >= currentWay.enemys.Length)
         {
             currentWayIndex++;
@@ -59,7 +58,6 @@ public class EnemySpawner : MonoBehaviour
 
         var currentEnemyType = currentWay.enemys[currentEnemyTypeIndex];
 
-        // Создание врага одного типа если их ещё нужно создавать
         if (currentEnemyCount < currentEnemyType.count_of_enemy)
         {
             GameObject enemyPrefab = GateEnemyPrefab(currentEnemyType.enemys);
@@ -71,13 +69,11 @@ public class EnemySpawner : MonoBehaviour
             }
         }
 
-        // Если создали всех врагов текущего типа, переходим к следующему
         if (currentEnemyCount >= currentEnemyType.count_of_enemy)
         {
             currentEnemyTypeIndex++;
             currentEnemyCount = 0;
 
-            //переход к следущему пути
             if (currentEnemyTypeIndex >= currentWay.enemys.Length)
             {
                 currentWayIndex++;
@@ -87,7 +83,6 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    // выбор префаба врага который будет создан
     public GameObject GateEnemyPrefab(IEnemy enemyType)
     {
         foreach (var enemy in manager.enemy_prefab)
@@ -98,7 +93,7 @@ public class EnemySpawner : MonoBehaviour
             }
         }
 
-        Debug.LogError($"Ошибка! Тип врага {enemyType} не найден в менеджере врагов!");
+        Debug.LogError($"ГЋГёГЁГЎГЄГ ! Г’ГЁГЇ ГўГ°Г ГЈГ  {enemyType} Г­ГҐ Г­Г Г©Г¤ГҐГ­ Гў Г¬ГҐГ­ГҐГ¤Г¦ГҐГ°ГҐ ГўГ°Г ГЈГ®Гў!");
         return null;
     }
 }
