@@ -10,16 +10,15 @@ public class EnemySpawner : MonoBehaviour
     public int time_before_start;
 
     private int current_wave_number = 0;
-    private int currentWayIndex; // èíäåêñ òåêóùåãî ïóòè
-    private int currentEnemyTypeIndex; // èíäåêñ òåêóùåãî òèïà âðàãà íà ïóòè
-    private int currentEnemyCount; // èíäåêñ òåêóùåãî êîëè÷åñòâà ñîçäàííûõ âðàãîâ
+    private int currentWayIndex; 
+    private int currentEnemyTypeIndex; 
+    private int currentEnemyCount; 
 
     private void Start()
     {
         Invoke("Start_next_wave", time_before_start);
     }
 
-    // çàïóñê ñëåäóþùåé âîëíû
     public void Start_next_wave()
     {
         current_wave_number++;
@@ -33,7 +32,6 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    // Ñîçäàíèå âðàãîâ íà ñöåíå â òåêóùåé âîëíå
     public void spawn_enemy_in_current_wave()
     {
         if (currentWayIndex >= manager.way.Count)
